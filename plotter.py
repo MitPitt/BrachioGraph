@@ -120,8 +120,8 @@ class Plotter:
                 self.rpi = pigpio.pi()
                 # the pulse frequency should be no higher than 100Hz - higher values could
                 # (supposedly) # damage the servos
-                self.rpi.set_PWM_frequency(14, 50)
-                self.rpi.set_PWM_frequency(15, 50)
+                self.rpi.set_PWM_frequency(16, 50)
+                self.rpi.set_PWM_frequency(20, 50)
                 pigpio.exceptions = True
                 self.virtual = False
                 # by default we use a wait factor of 0.1 for accuracy
@@ -687,9 +687,9 @@ class Plotter:
         else:
 
             if pw_1:
-                self.rpi.set_servo_pulsewidth(14, pw_1)
+                self.rpi.set_servo_pulsewidth(16, pw_1)
             if pw_2:
-                self.rpi.set_servo_pulsewidth(15, pw_2)
+                self.rpi.set_servo_pulsewidth(20, pw_2)
 
     def get_pulse_widths(self):
         """Returns the actual pulse-widths values; if in virtual mode, returns the nominal values -
@@ -703,12 +703,12 @@ class Plotter:
 
         else:
 
-            actual_pulse_width_1 = self.rpi.get_servo_pulsewidth(14)
-            actual_pulse_width_2 = self.rpi.get_servo_pulsewidth(15)
+            actual_pulse_width_1 = self.rpi.get_servo_pulsewidth(16)
+            actual_pulse_width_2 = self.rpi.get_servo_pulsewidth(20)
 
         return (actual_pulse_width_1, actual_pulse_width_2)
 
-    def quiet(self, servos=[14, 15, 18]):
+    def quiet(self, servos=[16, 20, 21]):
         """Stop sending pulses to the servos, so that they are no longer energised (and so that they
         stop buzzing).
         """
@@ -862,7 +862,7 @@ class Plotter:
 
 class Pen:
     def __init__(
-        self, bg, pw_up=1700, pw_down=1300, pin=18, transition_time=0.25, virtual=False
+        self, bg, pw_up=1700, pw_down=1300, pin=21, transition_time=0.25, virtual=False
     ):
 
         self.bg = bg
